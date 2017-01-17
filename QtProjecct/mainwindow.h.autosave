@@ -12,6 +12,7 @@
 #include <QFuture>
 #include <QDir>
 #include <QtConcurrent/QtConcurrent>
+#include <QVector>
 //#include <QtSerialPort/QSerialPort>
 #include "LpmsSensorManagerI.h"
 #include "LpmsSensorI.h"
@@ -52,13 +53,21 @@ private:
     LpmsSensorManagerI* manager;
     QFile *file;
 //    QFile *eulerAngleFile;
+    //Angle data (both quaternion and Euler angle)
     QTimer* timer_;
     double eulerAngle[3];
     float quaternionLT[4], quaternionRT[4], quaternionLS[4], quaternionRS[4], quaternionWaist[4];
+    float eulerLT[3], eulerRT[3], eulerLS[3], eulerRS[3], eulerWaist[3];
+    QVector<double> xe_LT, xe_LS, xe_RT, xe_RS, xe_Waist; // euler angle in sagittal plane
+    QVector<double> xq_LT, xq_LS, xq_RT, xq_RS, xq_Waist; // quaternion data in sagittal plane
+    QVector<double> time_q, time_e; //Euler time, quaternion time
     //QSerialPort *port;
 
     void record_data();
     void quaternionToEuler(float* quaternion, float* eulerAngle);
+    void updateGraph_quaternion(QVector<double> time, QVector<double> leftThigh, QVector<double> rightThigh, QVector<double> leftShank, QVector<double> rightShank, QVector<double> trunk);
+    void updateGraph_euler(QVector<double> time, QVector<double> leftThigh, QVector<double> rightThigh, QVector<double> leftShank, QVector<double> rightShank, QVector<double> trunk);
+
 };
 
 #endif // MAINWINDOW_H

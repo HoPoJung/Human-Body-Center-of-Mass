@@ -14,8 +14,6 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QHeaderView>
-#include <QtWidgets/QLCDNumber>
-#include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
@@ -34,18 +32,9 @@ public:
     QAction *actionDisconnect;
     QAction *actionExit;
     QWidget *centralWidget;
-    QPushButton *pushButton_ConnectDevice;
     QTextBrowser *textBrowser_status;
-    QLCDNumber *lcdNumber_heelAngle;
     QPushButton *pushButton_save_file;
     QPushButton *pushButton_newFile;
-    QLabel *label_heel;
-    QLabel *label_force_heel;
-    QLCDNumber *lcdNumber_force_heel;
-    QLabel *label_force_heel_2;
-    QLabel *label_force_heel_3;
-    QLCDNumber *lcdNumber_force_heel_2;
-    QLCDNumber *lcdNumber_force_heel_3;
     QMenuBar *menuBar;
     QMenu *menuCalls;
     QToolBar *mainToolBar;
@@ -64,42 +53,15 @@ public:
         actionExit->setObjectName(QStringLiteral("actionExit"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        pushButton_ConnectDevice = new QPushButton(centralWidget);
-        pushButton_ConnectDevice->setObjectName(QStringLiteral("pushButton_ConnectDevice"));
-        pushButton_ConnectDevice->setGeometry(QRect(10, 10, 141, 31));
         textBrowser_status = new QTextBrowser(centralWidget);
         textBrowser_status->setObjectName(QStringLiteral("textBrowser_status"));
         textBrowser_status->setGeometry(QRect(20, 480, 731, 101));
-        lcdNumber_heelAngle = new QLCDNumber(centralWidget);
-        lcdNumber_heelAngle->setObjectName(QStringLiteral("lcdNumber_heelAngle"));
-        lcdNumber_heelAngle->setGeometry(QRect(50, 130, 101, 31));
         pushButton_save_file = new QPushButton(centralWidget);
         pushButton_save_file->setObjectName(QStringLiteral("pushButton_save_file"));
         pushButton_save_file->setGeometry(QRect(10, 70, 141, 31));
         pushButton_newFile = new QPushButton(centralWidget);
         pushButton_newFile->setObjectName(QStringLiteral("pushButton_newFile"));
         pushButton_newFile->setGeometry(QRect(10, 40, 141, 31));
-        label_heel = new QLabel(centralWidget);
-        label_heel->setObjectName(QStringLiteral("label_heel"));
-        label_heel->setGeometry(QRect(20, 110, 121, 21));
-        label_force_heel = new QLabel(centralWidget);
-        label_force_heel->setObjectName(QStringLiteral("label_force_heel"));
-        label_force_heel->setGeometry(QRect(20, 170, 121, 21));
-        lcdNumber_force_heel = new QLCDNumber(centralWidget);
-        lcdNumber_force_heel->setObjectName(QStringLiteral("lcdNumber_force_heel"));
-        lcdNumber_force_heel->setGeometry(QRect(50, 190, 101, 31));
-        label_force_heel_2 = new QLabel(centralWidget);
-        label_force_heel_2->setObjectName(QStringLiteral("label_force_heel_2"));
-        label_force_heel_2->setGeometry(QRect(10, 230, 141, 21));
-        label_force_heel_3 = new QLabel(centralWidget);
-        label_force_heel_3->setObjectName(QStringLiteral("label_force_heel_3"));
-        label_force_heel_3->setGeometry(QRect(20, 290, 141, 21));
-        lcdNumber_force_heel_2 = new QLCDNumber(centralWidget);
-        lcdNumber_force_heel_2->setObjectName(QStringLiteral("lcdNumber_force_heel_2"));
-        lcdNumber_force_heel_2->setGeometry(QRect(50, 250, 101, 31));
-        lcdNumber_force_heel_3 = new QLCDNumber(centralWidget);
-        lcdNumber_force_heel_3->setObjectName(QStringLiteral("lcdNumber_force_heel_3"));
-        lcdNumber_force_heel_3->setGeometry(QRect(60, 310, 101, 31));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -131,13 +93,8 @@ public:
         actionConnect->setText(QApplication::translate("MainWindow", "Connect", 0));
         actionDisconnect->setText(QApplication::translate("MainWindow", "Disconnect", 0));
         actionExit->setText(QApplication::translate("MainWindow", "Exit", 0));
-        pushButton_ConnectDevice->setText(QApplication::translate("MainWindow", "Connect Devices", 0));
         pushButton_save_file->setText(QApplication::translate("MainWindow", "Save Record File", 0));
         pushButton_newFile->setText(QApplication::translate("MainWindow", "New Recored File", 0));
-        label_heel->setText(QApplication::translate("MainWindow", "Heel Inclination", 0));
-        label_force_heel->setText(QApplication::translate("MainWindow", "Force Senso Heelr", 0));
-        label_force_heel_2->setText(QApplication::translate("MainWindow", "Force Senso Meta1", 0));
-        label_force_heel_3->setText(QApplication::translate("MainWindow", "Force Senso Meta2", 0));
         menuCalls->setTitle(QApplication::translate("MainWindow", "Calls", 0));
     } // retranslateUi
 

@@ -23,6 +23,21 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->pushButton_newFile->setDisabled(true);
     ui->pushButton_save_file->setDisabled(true);
+
+    //add quaternion graph
+    ui->leftThigh->addGraph();
+    ui->leftShank->addGraph();
+    ui->trunk->addGraph();
+    ui->rightThigh->addGraph();
+    ui->rightShank->addGraph();
+
+    //add Euler angle graph
+    ui->leftThigh->addGraph();
+    ui->leftShank->addGraph();
+    ui->trunk->addGraph();
+    ui->rightThigh->addGraph();
+    ui->rightShank->addGraph();
+
 }
 
 MainWindow::~MainWindow()
@@ -39,6 +54,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::updateView()
 {
+    static double milisecond;
     bool sensorConnected_hasData = lpms_LT->getConnectionStatus() == SENSOR_CONNECTION_CONNECTED && lpms_LT->hasImuData()
             && lpms_RT->getConnectionStatus() == SENSOR_CONNECTION_CONNECTED && lpms_RT->hasImuData() &&
             lpms_LS->getConnectionStatus() == SENSOR_CONNECTION_CONNECTED && lpms_LS->hasImuData() &&
@@ -48,23 +64,48 @@ void MainWindow::updateView()
     if (sensorConnected_hasData)
     {
         d = lpms_LT->getCurrentData();
-        this->eulerAngle[0] =  d.r[0];  //roll(bank)
+        this->xe_LT.push_back(d.r[0]);  //roll(bank)
 //        this->eulerAngle[2] = d.r[1]; //pitch(alttitude)
 //        this->eulerAngle[1] = d.r[2]; //yaw(heading)
+        d = lpms_LS->getCurrentData();
+        this->xe_LS.push_back(d.r[0]);
+        d = lpms_RT->getCurrentData();
+        this->xe_RT.push_back(d.r[0]);
+        d = lpms_RS->getCurrentData();
+        this->xe_RS.push_back(d.r[0]);
+        d = lpms_waist->getCurrentData();
+        this->xe_Waist.push_back(d.r[0]);
 
         this->lpms_LT->getQuaternion(this->quaternionLT);
         this->lpms_RT->getQuaternion(this->quaternionRT);
         this->lpms_LS->getQuaternion(this->quaternionLS);
         this->lpms_RS->getQuaternion(this->quaternionRS);
         this->lpms_waist->getQuaternion(this->quaternionWaist);
+        this->time_e.push_back(milisecond);
     }
-    ui->lcdNumber_heelAngle->display(this->eulerAngle[0]);
+
+    if(time_e.size() % 50 == 0){
+        this->updateGraph_quaternion(time, xe_LT, xe_LS, xe_RT, xe_RS, xe_Waist);
+        if(time_e.size() % 6000 == 0)
+        {
+            xq_LT.clear();
+            xq_LS.clear();
+            xq_RT.clear();
+            xq_RS.clear();
+            xq_Waist.clear();
+            time_e.clear();
+            milisecond = 0;
+        }
+    }
+
+    milisecond++;
 
 
 }
 
 void MainWindow::record_data()
 {
+    static double milisecond;
     if(b_saving_file)
     {
         QTextStream out(file);
@@ -80,9 +121,35 @@ void MainWindow::record_data()
                 << "\t" << QString::number(this->quaternionWaist[0]) << "\t" << QString::number(this->quaternionWaist[1])
                 << "\t" << QString::number(this->quaternionWaist[2]) << "\t" << QString::number(this->quaternionWaist[3]);
         out << endl;
-
-
     }
+    this->quaternionToEuler(this->quaternionLT, this->eulerLT);
+    this->quaternionToEuler(this->quaternionLS, this->eulerLS);
+    this->quaternionToEuler(this->quaternionRT, this->eulerRT);
+    this->quaternionToEuler(this->quaternionRS, this->eulerRS);
+    this->quaternionToEuler(this->quaternionWaist, this->eulerWaist);
+
+    this->xq_LT.push_back(eulerLT[0]);
+    this->xq_LS.push_back(eulerLS[0]);
+    this->xq_RT.push_back(eulerRT[0]);
+    this->xq_RS.push_back(eulerRS[0]);
+    this->xq_Waist.push_back(eulerWaist[0]);
+    this->time_q.push_back(milisecond);
+
+    if(time_q.size() % 50 == 0){
+        this->updateGraph_quaternion(time, xq_LT, xq_LS, xq_RT, xq_RS, xq_Waist);
+        if(time_q.size() % 6000 == 0)
+        {
+            xq_LT.clear();
+            xq_LS.clear();
+            xq_RT.clear();
+            xq_RS.clear();
+            xq_Waist.clear();
+            time_q.clear();
+            milisecond = 0;
+        }
+    }
+
+    milisecond++;
 }
 
 void MainWindow::quaternionToEuler(float *quaternion, float *eulerAngle)
@@ -100,9 +167,91 @@ void MainWindow::quaternionToEuler(float *quaternion, float *eulerAngle)
     float r31 = 2* (y*z + w*x);
     float r32 = w*w - x*x - y*y + z*z;
 
-    *eulerAngle = (float)atan2(r11, r12) * r2d;
+    *(eulerAngle + 2) = (float)atan2(r11, r12) * r2d;
     *(eulerAngle + 1) = (float)asin(r21) * r2d;
-    *(eulerAngle + 2) = (float)atan2(r31, r32) * r2d;
+    *(eulerAngle) = (float)atan2(r31, r32) * r2d;
+}
+
+void MainWindow::updateGraph_quaternion(QVector<double> time, QVector<double> leftThigh, QVector<double> rightThigh, QVector<double> leftShank, QVector<double> rightShank, QVector<double> trunk)
+{
+    //set line color
+    ui->leftThigh->graph(0)->setPen(QPen(Qt::blue));
+    ui->leftShank->graph(0)->setPen(QPen(Qt::blue));
+    ui->rightThigh->graph(0)->setPen(QPen(Qt::blue));
+    ui->rightShank->graph(0)->setPen(QPen(Qt::blue));
+    ui->trunk->graph(0)->setPen(QPen(Qt::blue));
+
+    ui->leftThigh->graph(0)->setData(time, leftThigh);
+    ui->leftShank->graph(0)->setData(time, leftShank);
+    ui->trunk->graph(0)->setData(time, trunk);
+    ui->rightThigh->graph(0)->setData(time, rightThigh);
+    ui->rightShank->graph(0)->setData(time, rightShank);
+
+    //give the axes some labels
+    ui->leftShank->xAxis->setLabel("time");
+    ui->leftThigh->xAxis->setLabel("time");
+    ui->trunk->xAxis->setLabel("time");
+    ui->rightThigh->xAxis->setLabel("time");
+    ui->rightShank->xAxis->setLabel("time");
+
+    //setAxis
+    ui->leftShank->xAxis->setRange(0, 6000);
+    ui->leftShank->yAxis->setRange(-90, 90);
+    ui->trunk->xAxis->setRange(0, 6000);
+    ui->trunk->yAxis->setRange(-90, 90);
+    ui->rightThigh->xAxis->setRange(0, 6000);
+    ui->rightThigh->yAxis->setRange(-90, 90);
+    ui->rightShank->xAxis->setRange(0, 6000);
+    ui->rightShank->yAxis->setRange(-90, 90);
+    ui->leftThigh->xAxis->setRange(0, 6000);
+    ui->leftThigh->yAxis->setRange(-90, 90);
+
+    ui->leftThigh->replot();
+    ui->leftShank->replot();
+    ui->trunk->replot();
+    ui->rightThigh->replot();
+    ui->rightShank->replot();
+}
+
+void MainWindow::updateGraph_euler(QVector<double> time, QVector<double> leftThigh, QVector<double> rightThigh, QVector<double> leftShank, QVector<double> rightShank, QVector<double> trunk)
+{
+    //set line color
+    ui->leftThigh->graph(1)->setPen(QPen(Qt::red));
+    ui->leftShank->graph(1)->setPen(QPen(Qt::red));
+    ui->rightThigh->graph(1)->setPen(QPen(Qt::red));
+    ui->rightShank->graph(1)->setPen(QPen(Qt::red));
+    ui->trunk->graph(1)->setPen(QPen(Qt::red));
+
+    ui->leftThigh->graph(1)->setData(time, leftThigh);
+    ui->leftShank->graph(1)->setData(time, leftShank);
+    ui->trunk->graph(1)->setData(time, trunk);
+    ui->rightThigh->graph(1)->setData(time, rightThigh);
+    ui->rightShank->graph(1)->setData(time, rightShank);
+
+    //give the axes some labels
+    ui->leftShank->xAxis->setLabel("time");
+    ui->leftThigh->xAxis->setLabel("time");
+    ui->trunk->xAxis->setLabel("time");
+    ui->rightThigh->xAxis->setLabel("time");
+    ui->rightShank->xAxis->setLabel("time");
+
+    //setAxis
+    ui->leftShank->xAxis->setRange(0, 6000);
+    ui->leftShank->yAxis->setRange(-90, 90);
+    ui->trunk->xAxis->setRange(0, 6000);
+    ui->trunk->yAxis->setRange(-90, 90);
+    ui->rightThigh->xAxis->setRange(0, 6000);
+    ui->rightThigh->yAxis->setRange(-90, 90);
+    ui->rightShank->xAxis->setRange(0, 6000);
+    ui->rightShank->yAxis->setRange(-90, 90);
+    ui->leftThigh->xAxis->setRange(0, 6000);
+    ui->leftThigh->yAxis->setRange(-90, 90);
+
+    ui->leftThigh->replot();
+    ui->leftShank->replot();
+    ui->trunk->replot();
+    ui->rightThigh->replot();
+    ui->rightShank->replot();
 }
 
 void MainWindow::on_pushButton_save_file_clicked()
