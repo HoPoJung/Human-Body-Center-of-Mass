@@ -38,24 +38,24 @@ public:
     QTextBrowser *textBrowser_status;
     QPushButton *pushButton_save_file;
     QPushButton *pushButton_newFile;
-    QLabel *label_leftShank;
-    QLabel *label_rightShank;
-    QCustomPlot *trunk;
-    QLabel *label_trunk;
-    QWidget *widget;
-    QHBoxLayout *horizontalLayout_2;
-    QWidget *widget1;
-    QHBoxLayout *horizontalLayout_4;
-    QCustomPlot *leftThigh;
-    QCustomPlot *rightThigh;
-    QWidget *widget2;
+    QWidget *layoutWidget;
     QHBoxLayout *horizontalLayout_5;
     QCustomPlot *leftShank;
     QCustomPlot *rightShank;
-    QWidget *widget3;
+    QWidget *widget;
     QHBoxLayout *horizontalLayout;
+    QCustomPlot *trunk;
+    QCustomPlot *leftThigh;
+    QCustomPlot *rightThigh;
+    QWidget *widget1;
+    QHBoxLayout *horizontalLayout_3;
+    QLabel *label_trunk;
     QLabel *label_leftThigh;
     QLabel *label_rightThigh;
+    QWidget *widget2;
+    QHBoxLayout *horizontalLayout_2;
+    QLabel *label_leftShank;
+    QLabel *label_rightShank;
     QMenuBar *menuBar;
     QMenu *menuCalls;
     QToolBar *mainToolBar;
@@ -65,7 +65,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(1152, 800);
+        MainWindow->resize(1152, 818);
         actionConnect = new QAction(MainWindow);
         actionConnect->setObjectName(QStringLiteral("actionConnect"));
         actionDisconnect = new QAction(MainWindow);
@@ -76,97 +76,113 @@ public:
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         textBrowser_status = new QTextBrowser(centralWidget);
         textBrowser_status->setObjectName(QStringLiteral("textBrowser_status"));
-        textBrowser_status->setGeometry(QRect(20, 630, 681, 101));
+        textBrowser_status->setGeometry(QRect(30, 660, 711, 101));
         pushButton_save_file = new QPushButton(centralWidget);
         pushButton_save_file->setObjectName(QStringLiteral("pushButton_save_file"));
-        pushButton_save_file->setGeometry(QRect(250, 510, 211, 101));
+        pushButton_save_file->setGeometry(QRect(750, 520, 341, 130));
         QFont font;
-        font.setFamily(QStringLiteral("Arial"));
-        font.setPointSize(18);
+        font.setFamily(QStringLiteral("Ebrima"));
+        font.setPointSize(22);
+        font.setBold(true);
+        font.setWeight(75);
         pushButton_save_file->setFont(font);
         pushButton_newFile = new QPushButton(centralWidget);
         pushButton_newFile->setObjectName(QStringLiteral("pushButton_newFile"));
-        pushButton_newFile->setGeometry(QRect(20, 510, 211, 101));
+        pushButton_newFile->setGeometry(QRect(750, 380, 341, 130));
         pushButton_newFile->setFont(font);
-        label_leftShank = new QLabel(centralWidget);
-        label_leftShank->setObjectName(QStringLiteral("label_leftShank"));
-        label_leftShank->setGeometry(QRect(722, 450, 202, 27));
-        label_leftShank->setFont(font);
-        label_rightShank = new QLabel(centralWidget);
-        label_rightShank->setObjectName(QStringLiteral("label_rightShank"));
-        label_rightShank->setGeometry(QRect(930, 450, 201, 27));
-        label_rightShank->setFont(font);
-        trunk = new QCustomPlot(centralWidget);
-        trunk->setObjectName(QStringLiteral("trunk"));
-        trunk->setGeometry(QRect(810, 90, 221, 161));
-        label_trunk = new QLabel(centralWidget);
-        label_trunk->setObjectName(QStringLiteral("label_trunk"));
-        label_trunk->setGeometry(QRect(810, 50, 221, 27));
-        label_trunk->setFont(font);
-        widget = new QWidget(centralWidget);
-        widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(710, 450, 411, 29));
-        horizontalLayout_2 = new QHBoxLayout(widget);
-        horizontalLayout_2->setSpacing(6);
-        horizontalLayout_2->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
-        horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
-        widget1 = new QWidget(centralWidget);
-        widget1->setObjectName(QStringLiteral("widget1"));
-        widget1->setGeometry(QRect(710, 290, 411, 151));
-        horizontalLayout_4 = new QHBoxLayout(widget1);
-        horizontalLayout_4->setSpacing(6);
-        horizontalLayout_4->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
-        horizontalLayout_4->setContentsMargins(0, 0, 0, 0);
-        leftThigh = new QCustomPlot(widget1);
-        leftThigh->setObjectName(QStringLiteral("leftThigh"));
-
-        horizontalLayout_4->addWidget(leftThigh);
-
-        rightThigh = new QCustomPlot(widget1);
-        rightThigh->setObjectName(QStringLiteral("rightThigh"));
-        leftThigh->raise();
-
-        horizontalLayout_4->addWidget(rightThigh);
-
-        widget2 = new QWidget(centralWidget);
-        widget2->setObjectName(QStringLiteral("widget2"));
-        widget2->setGeometry(QRect(710, 480, 411, 161));
-        horizontalLayout_5 = new QHBoxLayout(widget2);
+        layoutWidget = new QWidget(centralWidget);
+        layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
+        layoutWidget->setGeometry(QRect(30, 370, 711, 281));
+        horizontalLayout_5 = new QHBoxLayout(layoutWidget);
         horizontalLayout_5->setSpacing(6);
         horizontalLayout_5->setContentsMargins(11, 11, 11, 11);
         horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
         horizontalLayout_5->setContentsMargins(0, 0, 0, 0);
-        leftShank = new QCustomPlot(widget2);
+        leftShank = new QCustomPlot(layoutWidget);
         leftShank->setObjectName(QStringLiteral("leftShank"));
 
         horizontalLayout_5->addWidget(leftShank);
 
-        rightShank = new QCustomPlot(widget2);
+        rightShank = new QCustomPlot(layoutWidget);
         rightShank->setObjectName(QStringLiteral("rightShank"));
 
         horizontalLayout_5->addWidget(rightShank);
 
-        widget3 = new QWidget(centralWidget);
-        widget3->setObjectName(QStringLiteral("widget3"));
-        widget3->setGeometry(QRect(710, 260, 411, 29));
-        horizontalLayout = new QHBoxLayout(widget3);
+        widget = new QWidget(centralWidget);
+        widget->setObjectName(QStringLiteral("widget"));
+        widget->setGeometry(QRect(30, 50, 1061, 281));
+        horizontalLayout = new QHBoxLayout(widget);
         horizontalLayout->setSpacing(6);
         horizontalLayout->setContentsMargins(11, 11, 11, 11);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
-        label_leftThigh = new QLabel(widget3);
+        trunk = new QCustomPlot(widget);
+        trunk->setObjectName(QStringLiteral("trunk"));
+
+        horizontalLayout->addWidget(trunk);
+
+        leftThigh = new QCustomPlot(widget);
+        leftThigh->setObjectName(QStringLiteral("leftThigh"));
+        trunk->raise();
+        trunk->raise();
+
+        horizontalLayout->addWidget(leftThigh);
+
+        rightThigh = new QCustomPlot(widget);
+        rightThigh->setObjectName(QStringLiteral("rightThigh"));
+
+        horizontalLayout->addWidget(rightThigh);
+
+        widget1 = new QWidget(centralWidget);
+        widget1->setObjectName(QStringLiteral("widget1"));
+        widget1->setGeometry(QRect(30, 18, 1061, 34));
+        horizontalLayout_3 = new QHBoxLayout(widget1);
+        horizontalLayout_3->setSpacing(6);
+        horizontalLayout_3->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
+        horizontalLayout_3->setContentsMargins(0, 0, 0, 0);
+        label_trunk = new QLabel(widget1);
+        label_trunk->setObjectName(QStringLiteral("label_trunk"));
+        QFont font1;
+        font1.setFamily(QStringLiteral("Ebrima"));
+        font1.setPointSize(18);
+        font1.setBold(true);
+        font1.setWeight(75);
+        label_trunk->setFont(font1);
+
+        horizontalLayout_3->addWidget(label_trunk);
+
+        label_leftThigh = new QLabel(widget1);
         label_leftThigh->setObjectName(QStringLiteral("label_leftThigh"));
-        label_leftThigh->setFont(font);
+        label_leftThigh->setFont(font1);
 
-        horizontalLayout->addWidget(label_leftThigh);
+        horizontalLayout_3->addWidget(label_leftThigh);
 
-        label_rightThigh = new QLabel(widget3);
+        label_rightThigh = new QLabel(widget1);
         label_rightThigh->setObjectName(QStringLiteral("label_rightThigh"));
-        label_rightThigh->setFont(font);
+        label_rightThigh->setFont(font1);
 
-        horizontalLayout->addWidget(label_rightThigh);
+        horizontalLayout_3->addWidget(label_rightThigh);
+
+        widget2 = new QWidget(centralWidget);
+        widget2->setObjectName(QStringLiteral("widget2"));
+        widget2->setGeometry(QRect(30, 340, 711, 34));
+        horizontalLayout_2 = new QHBoxLayout(widget2);
+        horizontalLayout_2->setSpacing(6);
+        horizontalLayout_2->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
+        label_leftShank = new QLabel(widget2);
+        label_leftShank->setObjectName(QStringLiteral("label_leftShank"));
+        label_leftShank->setFont(font1);
+
+        horizontalLayout_2->addWidget(label_leftShank);
+
+        label_rightShank = new QLabel(widget2);
+        label_rightShank->setObjectName(QStringLiteral("label_rightShank"));
+        label_rightShank->setFont(font1);
+
+        horizontalLayout_2->addWidget(label_rightShank);
 
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
@@ -201,11 +217,11 @@ public:
         actionExit->setText(QApplication::translate("MainWindow", "Exit", 0));
         pushButton_save_file->setText(QApplication::translate("MainWindow", "Save Record File", 0));
         pushButton_newFile->setText(QApplication::translate("MainWindow", "New Recored File", 0));
-        label_leftShank->setText(QApplication::translate("MainWindow", "Left Shank", 0));
-        label_rightShank->setText(QApplication::translate("MainWindow", "Right Shank", 0));
         label_trunk->setText(QApplication::translate("MainWindow", "Trunk", 0));
         label_leftThigh->setText(QApplication::translate("MainWindow", "Left Thigh", 0));
         label_rightThigh->setText(QApplication::translate("MainWindow", "Right Thigh", 0));
+        label_leftShank->setText(QApplication::translate("MainWindow", "Left Shank", 0));
+        label_rightShank->setText(QApplication::translate("MainWindow", "Right Shank", 0));
         menuCalls->setTitle(QApplication::translate("MainWindow", "Calls", 0));
     } // retranslateUi
 

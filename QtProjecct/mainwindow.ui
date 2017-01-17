@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1152</width>
-    <height>800</height>
+    <height>818</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,9 +17,9 @@
    <widget class="QTextBrowser" name="textBrowser_status">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>630</y>
-      <width>681</width>
+      <x>30</x>
+      <y>660</y>
+      <width>711</width>
       <height>101</height>
      </rect>
     </property>
@@ -27,16 +27,18 @@
    <widget class="QPushButton" name="pushButton_save_file">
     <property name="geometry">
      <rect>
-      <x>250</x>
-      <y>510</y>
-      <width>211</width>
-      <height>101</height>
+      <x>750</x>
+      <y>520</y>
+      <width>341</width>
+      <height>130</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <family>Arial</family>
-      <pointsize>18</pointsize>
+      <family>Ebrima</family>
+      <pointsize>22</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
      </font>
     </property>
     <property name="text">
@@ -46,158 +48,99 @@
    <widget class="QPushButton" name="pushButton_newFile">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>510</y>
-      <width>211</width>
-      <height>101</height>
+      <x>750</x>
+      <y>380</y>
+      <width>341</width>
+      <height>130</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <family>Arial</family>
-      <pointsize>18</pointsize>
+      <family>Ebrima</family>
+      <pointsize>22</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
      </font>
     </property>
     <property name="text">
      <string>New Recored File</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_leftShank">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>722</x>
-      <y>450</y>
-      <width>202</width>
-      <height>27</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-      <pointsize>18</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Left Shank</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_rightShank">
-    <property name="geometry">
-     <rect>
-      <x>930</x>
-      <y>450</y>
-      <width>201</width>
-      <height>27</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-      <pointsize>18</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Right Shank</string>
-    </property>
-   </widget>
-   <widget class="QCustomPlot" name="trunk" native="true">
-    <property name="geometry">
-     <rect>
-      <x>810</x>
-      <y>90</y>
-      <width>221</width>
-      <height>161</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_trunk">
-    <property name="geometry">
-     <rect>
-      <x>810</x>
-      <y>50</y>
-      <width>221</width>
-      <height>27</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-      <pointsize>18</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Trunk</string>
-    </property>
-   </widget>
-   <widget class="QWidget" name="">
-    <property name="geometry">
-     <rect>
-      <x>710</x>
-      <y>450</y>
-      <width>411</width>
-      <height>29</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_2"/>
-   </widget>
-   <widget class="QWidget" name="">
-    <property name="geometry">
-     <rect>
-      <x>710</x>
-      <y>290</y>
-      <width>411</width>
-      <height>151</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_4">
-     <item>
-      <widget class="QCustomPlot" name="leftThigh" native="true"/>
-     </item>
-     <item>
-      <widget class="QCustomPlot" name="rightThigh" native="true">
-       <zorder>leftThigh</zorder>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="">
-    <property name="geometry">
-     <rect>
-      <x>710</x>
-      <y>480</y>
-      <width>411</width>
-      <height>161</height>
+      <x>30</x>
+      <y>370</y>
+      <width>711</width>
+      <height>281</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout_5">
      <item>
-      <widget class="QCustomPlot" name="leftShank" native="true">
-       <zorder>leftAnkle</zorder>
-      </widget>
+      <widget class="QCustomPlot" name="leftShank" native="true"/>
      </item>
      <item>
-      <widget class="QCustomPlot" name="rightShank" native="true">
-       <zorder></zorder>
-      </widget>
+      <widget class="QCustomPlot" name="rightShank" native="true"/>
      </item>
     </layout>
    </widget>
    <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
-      <x>710</x>
-      <y>260</y>
-      <width>411</width>
-      <height>29</height>
+      <x>30</x>
+      <y>50</y>
+      <width>1061</width>
+      <height>281</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
+      <widget class="QCustomPlot" name="trunk" native="true"/>
+     </item>
+     <item>
+      <widget class="QCustomPlot" name="leftThigh" native="true">
+       <zorder>trunk</zorder>
+       <zorder>trunk</zorder>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCustomPlot" name="rightThigh" native="true"/>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>18</y>
+      <width>1061</width>
+      <height>34</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QLabel" name="label_trunk">
+       <property name="font">
+        <font>
+         <family>Ebrima</family>
+         <pointsize>18</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Trunk</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QLabel" name="label_leftThigh">
        <property name="font">
         <font>
-         <family>Arial</family>
+         <family>Ebrima</family>
          <pointsize>18</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
         </font>
        </property>
        <property name="text">
@@ -209,12 +152,56 @@
       <widget class="QLabel" name="label_rightThigh">
        <property name="font">
         <font>
-         <family>Arial</family>
+         <family>Ebrima</family>
          <pointsize>18</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
         </font>
        </property>
        <property name="text">
         <string>Right Thigh</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>340</y>
+      <width>711</width>
+      <height>34</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QLabel" name="label_leftShank">
+       <property name="font">
+        <font>
+         <family>Ebrima</family>
+         <pointsize>18</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Left Shank</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_rightShank">
+       <property name="font">
+        <font>
+         <family>Ebrima</family>
+         <pointsize>18</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Right Shank</string>
        </property>
       </widget>
      </item>

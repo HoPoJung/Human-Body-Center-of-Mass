@@ -60,7 +60,7 @@ private:
     float eulerLT[3], eulerRT[3], eulerLS[3], eulerRS[3], eulerWaist[3];
     QVector<double> xe_LT, xe_LS, xe_RT, xe_RS, xe_Waist; // euler angle in sagittal plane
     QVector<double> xq_LT, xq_LS, xq_RT, xq_RS, xq_Waist; // quaternion data in sagittal plane
-    QVector<double> time;
+    QVector<double> time_q, time_e; //Euler time, quaternion time
     //QSerialPort *port;
 
     void record_data();

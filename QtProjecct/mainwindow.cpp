@@ -81,18 +81,19 @@ void MainWindow::updateView()
         this->lpms_LS->getQuaternion(this->quaternionLS);
         this->lpms_RS->getQuaternion(this->quaternionRS);
         this->lpms_waist->getQuaternion(this->quaternionWaist);
-        this->time.push_back(milisecond);
+        this->time_e.push_back(milisecond);
     }
 
-    if(xq_LT.size() % 50 == 0){
-        this->updateGraph_quaternion(time, xq_LT, xq_LS, xq_RT, xq_RS, xq_Waist);
-        if(xq_LT.size() % 6000 == 0)
+    if(time_e.size() % 50 == 0){
+        this->updateGraph_quaternion(time_e, xe_LT, xe_LS, xe_RT, xe_RS, xe_Waist);
+        if(time_e.size() % 6000 == 0)
         {
             xq_LT.clear();
             xq_LS.clear();
             xq_RT.clear();
             xq_RS.clear();
             xq_Waist.clear();
+            time_e.clear();
             milisecond = 0;
         }
     }
@@ -132,17 +133,18 @@ void MainWindow::record_data()
     this->xq_RT.push_back(eulerRT[0]);
     this->xq_RS.push_back(eulerRS[0]);
     this->xq_Waist.push_back(eulerWaist[0]);
-    this->time.push_back(milisecond);
+    this->time_q.push_back(milisecond);
 
-    if(xq_LT.size() % 50 == 0){
-        this->updateGraph_quaternion(time, xq_LT, xq_LS, xq_RT, xq_RS, xq_Waist);
-        if(xq_LT.size() % 6000 == 0)
+    if(time_q.size() % 50 == 0){
+        this->updateGraph_quaternion(time_q, xq_LT, xq_LS, xq_RT, xq_RS, xq_Waist);
+        if(time_q.size() % 6000 == 0)
         {
             xq_LT.clear();
             xq_LS.clear();
             xq_RT.clear();
             xq_RS.clear();
             xq_Waist.clear();
+            time_q.clear();
             milisecond = 0;
         }
     }
