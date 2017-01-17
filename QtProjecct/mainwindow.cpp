@@ -38,6 +38,34 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->rightThigh->addGraph();
     ui->rightShank->addGraph();
 
+    //setting legend on graph
+    ui->leftThigh->legend->setVisible(true);
+    ui->leftShank->legend->setVisible(true);
+    ui->rightThigh->legend->setVisible(true);
+    ui->rightShank->legend->setVisible(true);
+    ui->trunk->legend->setVisible(true);
+    //set up legend fond size
+    QFont legendFont = font();
+    legendFont.setPointSize(9);
+    ui->leftThigh->legend->setFont(legendFont);
+    ui->leftShank->legend->setFont(legendFont);
+    ui->rightThigh->legend->setFont(legendFont);
+    ui->rightShank->legend->setFont(legendFont);
+    ui->trunk->legend->setFont(legendFont);
+    //set up legend background color
+    ui->leftThigh->legend->setBrush(QBrush(QColor(255, 255, 255, 230)));
+    ui->leftShank->legend->setBrush(QBrush(QColor(255, 255, 255, 230)));
+    ui->rightThigh->legend->setBrush(QBrush(QColor(255, 255, 255, 230)));
+    ui->rightShank->legend->setBrush(QBrush(QColor(255, 255, 255, 230)));
+    ui->trunk->legend->setBrush(QBrush(QColor(255, 255, 255, 230)));
+    //set up legend layout
+    ui->leftThigh->axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignBottom|Qt::AlignRight);
+    ui->leftShank->axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignBottom|Qt::AlignRight);
+    ui->rightThigh->axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignBottom|Qt::AlignRight);
+    ui->rightShank->axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignBottom|Qt::AlignRight);
+    ui->trunk->axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignBottom|Qt::AlignRight);
+
+
 }
 
 MainWindow::~MainWindow()
@@ -136,7 +164,7 @@ void MainWindow::record_data()
     this->time_q.push_back(milisecond);
 
     if(time_q.size() % 50 == 0){
-        this->updateGraph_quaternion(time_q, xq_LT, xq_LS, xq_RT, xq_RS, xq_Waist);
+        this->updateGraph_euler(time_q, xq_LT, xq_LS, xq_RT, xq_RS, xq_Waist);
         if(time_q.size() % 6000 == 0)
         {
             xq_LT.clear();
@@ -187,6 +215,13 @@ void MainWindow::updateGraph_quaternion(QVector<double> time, QVector<double> le
     ui->rightThigh->graph(0)->setData(time, rightThigh);
     ui->rightShank->graph(0)->setData(time, rightShank);
 
+    //set legend name
+    ui->leftThigh->graph(0)->setName("Quaternion");
+    ui->leftShank->graph(0)->setName("Quaternion");
+    ui->rightThigh->graph(0)->setName("Quaternion");
+    ui->rightShank->graph(0)->setName("Quaternion");
+    ui->trunk->graph(0)->setName("Quaternion");
+
     //give the axes some labels
     ui->leftShank->xAxis->setLabel("time");
     ui->leftThigh->xAxis->setLabel("time");
@@ -227,6 +262,13 @@ void MainWindow::updateGraph_euler(QVector<double> time, QVector<double> leftThi
     ui->trunk->graph(1)->setData(time, trunk);
     ui->rightThigh->graph(1)->setData(time, rightThigh);
     ui->rightShank->graph(1)->setData(time, rightShank);
+
+    //set legend name
+    ui->leftThigh->graph(1)->setName("Quaternion");
+    ui->leftShank->graph(1)->setName("Quaternion");
+    ui->rightThigh->graph(1)->setName("Quaternion");
+    ui->rightShank->graph(1)->setName("Quaternion");
+    ui->trunk->graph(1)->setName("Quaternion");
 
     //give the axes some labels
     ui->leftShank->xAxis->setLabel("time");
