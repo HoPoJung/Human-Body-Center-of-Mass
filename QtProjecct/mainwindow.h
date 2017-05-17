@@ -54,7 +54,21 @@ private slots:
 
     void on_pushButton_newFile_clicked();
 
-    void on_actionConnect_triggered();
+    void on_actionConnect_Left_Thigh_IMU_triggered();
+
+    void on_actionConnect_Right_Thigh_IMU_triggered();
+
+    void on_actionLeft_Shank_IMU_triggered();
+
+    void on_actionRight_Shank_IMU_triggered();
+
+    void on_actionLeft_Foot_IMU_triggered();
+
+    void on_actionRight_Foot_IMU_triggered();
+
+    void on_actionWaist_triggered();
+
+    void on_actionCalibration_triggered();
 
 private:
     Ui::MainWindow *ui;

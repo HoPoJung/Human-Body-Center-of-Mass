@@ -218,7 +218,19 @@
     <property name="title">
      <string>Calls</string>
     </property>
-    <addaction name="actionConnect"/>
+    <widget class="QMenu" name="menuConnect">
+     <property name="title">
+      <string>Connect</string>
+     </property>
+     <addaction name="actionConnect_Left_Thigh_IMU"/>
+     <addaction name="actionConnect_Right_Thigh_IMU"/>
+     <addaction name="actionLeft_Shank_IMU"/>
+     <addaction name="actionRight_Shank_IMU"/>
+     <addaction name="actionLeft_Foot_IMU"/>
+     <addaction name="actionRight_Foot_IMU"/>
+     <addaction name="actionWaist"/>
+    </widget>
+    <addaction name="menuConnect"/>
     <addaction name="actionDisconnect"/>
     <addaction name="separator"/>
     <addaction name="actionExit"/>
@@ -241,11 +253,6 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="actionConnect">
-   <property name="text">
-    <string>Connect</string>
-   </property>
-  </action>
   <action name="actionDisconnect">
    <property name="text">
     <string>Disconnect</string>
@@ -259,6 +266,41 @@
   <action name="actionCalibration">
    <property name="text">
     <string>Calibration</string>
+   </property>
+  </action>
+  <action name="actionConnect_Left_Thigh_IMU">
+   <property name="text">
+    <string>Left Thigh IMU</string>
+   </property>
+  </action>
+  <action name="actionConnect_Right_Thigh_IMU">
+   <property name="text">
+    <string>Right Thigh IMU</string>
+   </property>
+  </action>
+  <action name="actionLeft_Shank_IMU">
+   <property name="text">
+    <string>Left Shank IMU</string>
+   </property>
+  </action>
+  <action name="actionRight_Shank_IMU">
+   <property name="text">
+    <string>Right Shank IMU</string>
+   </property>
+  </action>
+  <action name="actionLeft_Foot_IMU">
+   <property name="text">
+    <string>Left Foot IMU</string>
+   </property>
+  </action>
+  <action name="actionRight_Foot_IMU">
+   <property name="text">
+    <string>Right Foot IMU</string>
+   </property>
+  </action>
+  <action name="actionWaist">
+   <property name="text">
+    <string>Waist</string>
    </property>
   </action>
  </widget>

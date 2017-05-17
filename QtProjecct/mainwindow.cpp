@@ -17,6 +17,8 @@ MainWindow::MainWindow(QWidget *parent) :
     timer_->stop();
     timer_->setInterval(10);
 
+    m_engine = engOpen("null");
+
 
     QObject::connect(timer_, SIGNAL(timeout()), this, SLOT(updateView()));
     QObject::connect(timer_, SIGNAL(timeout()), this, SLOT(recordData_Thread()));
@@ -67,6 +69,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->trunk->axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignBottom|Qt::AlignRight);
 
     initHumanSkeletonModel();
+    manager = LpmsSensorManagerFactory();
 
     //initialize angle & gyro data of matlab variable
 //    m_angleRightThigh =  mxCreateDoubleMatrix(3, 1, mxREAL);
@@ -587,11 +590,11 @@ void MainWindow::sendQuaternionDataToMatlab()
 
 void MainWindow::sendAngularDataToMatlab()
 {
-    memcpy((void *)mxGetPr(this->m_angleRightThigh), (void *)angle_rightThigh, sizeof(double)*3);
-    memcpy((void *)mxGetPr(this->m_angleRightShank), (void *)angle_rightShank, sizeof(double)*3);
-    memcpy((void *)mxGetPr(this->m_angleLeftShank), (void *)angle_leftShank, sizeof(double)*3);
-    memcpy((void *)mxGetPr(this->m_gyroLeftFoot), (void *)angle_leftShank, sizeof(double)*3);
-    memcpy((void *)mxGetPr(this->m_gyroRightFoot), (void *)gyro_rightFoot, sizeof(double)*3);
+//    memcpy((void *)mxGetPr(this->m_angleRightThigh), (void *)angle_rightThigh, sizeof(double)*3);
+//    memcpy((void *)mxGetPr(this->m_angleRightShank), (void *)angle_rightShank, sizeof(double)*3);
+//    memcpy((void *)mxGetPr(this->m_angleLeftShank), (void *)angle_leftShank, sizeof(double)*3);
+//    memcpy((void *)mxGetPr(this->m_gyroLeftFoot), (void *)angle_leftShank, sizeof(double)*3);
+//    memcpy((void *)mxGetPr(this->m_gyroRightFoot), (void *)gyro_rightFoot, sizeof(double)*3);
 
     m_angleRightThigh = mxCreateDoubleScalar(angle_rightThigh[0]);
     m_angleRightShank = mxCreateDoubleScalar(angle_rightShank[0]);
@@ -648,7 +651,7 @@ void MainWindow::record_data()
     this->time_q.push_back(milisecond);
 
     if(time_q.size() % 50 == 0){
-        this->updateGraph_quaternion(time_q, xq_LT, xq_LS, xq_RT, xq_RS, xq_Waist);
+//        this->updateGraph_quaternion(time_q, xq_LT, xq_LS, xq_RT, xq_RS, xq_Waist);
         if(time_q.size() % 6000 == 0)
         {
             xq_LT.clear();
@@ -825,128 +828,109 @@ void MainWindow::recordData_Thread()
     future.waitForFinished();
 }
 
-
-
-void MainWindow::on_actionConnect_triggered()
+void MainWindow::on_actionConnect_Left_Thigh_IMU_triggered()
 {
-    manager = LpmsSensorManagerFactory();
     lpms_LT = manager->addSensor(DEVICE_LPMS_B, "00:04:3E:9F:E1:3E");
-//    while(1)
-//    {
-//        if(lpms_LT->getConnectionStatus() == SENSOR_CONNECTION_CONNECTED && lpms_LT->hasImuData())
-//        {
-//            lpms_LT->setOrientationOffset(0);
-//            lpms_LT->saveCalibrationData();
-//            ui->textBrowser_status->append("IMU Left Thigh is connected");
-//            break;
-//        }
-//    }
-
-    lpms_RT = manager->addSensor(DEVICE_LPMS_B, "00:04:3E:9F:E0:F2");
-//    while(1)
-//    {
-//        if(lpms_RT->getConnectionStatus() == SENSOR_CONNECTION_CONNECTED && lpms_RT->hasImuData())
-//        {
-//            lpms_RT->setOrientationOffset(0);
-//            lpms_RT->saveCalibrationData();
-//            ui->textBrowser_status->append("IMU Right Thigh is connected");
-//            break;
-//        }
-//    }
-
-    lpms_LS = manager->addSensor(DEVICE_LPMS_B, "00:04:3E:9F:E0:ED");
-//    while(1)
-//    {
-//        if(lpms_LS->getConnectionStatus() == SENSOR_CONNECTION_CONNECTED && lpms_LS->hasImuData())
-//        {
-//            lpms_LS->setOrientationOffset(0);
-//            lpms_LS->saveCalibrationData();
-//            ui->textBrowser_status->append("IMU Left Shank is connected");
-//            break;
-//        }
-//    }
-
-    lpms_RS = manager->addSensor(DEVICE_LPMS_B, "00:04:3E:9F:E0:BB");
-//    while(1)
-//    {
-//        if(lpms_RS->getConnectionStatus() == SENSOR_CONNECTION_CONNECTED && lpms_RS->hasImuData())
-//        {
-//            lpms_RS->setOrientationOffset(0);
-//            lpms_RS->saveCalibrationData();
-//            ui->textBrowser_status->append("IMU Right Shank is connected");
-//            break;
-//        }
-//    }
-
-
-    lpms_RF = manager->addSensor(DEVICE_LPMS_B, "00:04:3E:9F:E1:4B");
-//    while(1)
-//    {
-//        if(lpms_RF->getConnectionStatus() == SENSOR_CONNECTION_CONNECTED && lpms_RF->hasImuData())
-//        {
-//            lpms_RF->setOrientationOffset(0);
-//            lpms_RF->saveCalibrationData();
-//            ui->textBrowser_status->append("IMU Right Foot is connected");
-//            break;
-//        }
-//    }
-
-    lpms_LF = manager->addSensor(DEVICE_LPMS_B, "00:04:3E:9F:E0:CF");
-//    while(1)
-//    {
-//        if(lpms_LF->getConnectionStatus() == SENSOR_CONNECTION_CONNECTED && lpms_LF->hasImuData())
-//        {
-//            lpms_LF->setOrientationOffset(0);
-//            lpms_LF->saveCalibrationData();
-//            ui->textBrowser_status->append("IMU Left Foot is connected");
-//            break;
-//        }
-//    }
-
-    lpms_waist = manager->addSensor(DEVICE_LPMS_B, "00:04:3E:9F:E0:B3");
-//    while(1)
-//    {
-//        if(lpms_waist->getConnectionStatus() == SENSOR_CONNECTION_CONNECTED && lpms_waist->hasImuData())
-//        {
-//            lpms_waist->setOrientationOffset(0);
-//            lpms_waist->saveCalibrationData();
-//            ui->textBrowser_status->append("IMU Waist is connected");
-//            break;
-//        }
-//    }
-
-    bool sensorConnected_hasData = lpms_LT->getConnectionStatus() == SENSOR_CONNECTION_CONNECTED && lpms_LT->hasImuData() &&
-            lpms_RS->getConnectionStatus() == SENSOR_CONNECTION_CONNECTED && lpms_RS->hasImuData() &&
-            lpms_RT->getConnectionStatus() == SENSOR_CONNECTION_CONNECTED && lpms_RT->hasImuData() &&
-            lpms_LS->getConnectionStatus() == SENSOR_CONNECTION_CONNECTED && lpms_LS->hasImuData() &&
-            lpms_waist->getConnectionStatus() == SENSOR_CONNECTION_CONNECTED && lpms_waist->hasImuData() &&
-            lpms_RF->getConnectionStatus() == SENSOR_CONNECTION_CONNECTED && lpms_RF->hasImuData() &&
-            lpms_LF->getConnectionStatus() == SENSOR_CONNECTION_CONNECTED && lpms_LF->hasImuData();
-
-    if (sensorConnected_hasData){
-        lpms_LT->setOrientationOffset(0);
-        lpms_LT->saveCalibrationData();
-        ui->textBrowser_status->append("IMU Left Thigh is connected");
-        lpms_RT->setOrientationOffset(0);
-        lpms_RT->saveCalibrationData();
-        ui->textBrowser_status->append("IMU Right Thigh is connected");
-        lpms_LS->setOrientationOffset(0);
-        lpms_LS->saveCalibrationData();
-        ui->textBrowser_status->append("IMU Left Shank is connected");
-        lpms_RS->setOrientationOffset(0);
-        lpms_RS->saveCalibrationData();
-        ui->textBrowser_status->append("IMU Right Shank is connected");
-        lpms_RF->setOrientationOffset(0);
-        lpms_RF->saveCalibrationData();
-        ui->textBrowser_status->append("IMU Right Foot is connected");
-        lpms_LF->setOrientationOffset(0);
-        lpms_LF->saveCalibrationData();
-        ui->textBrowser_status->append("IMU Left Foot is connected");
-        lpms_waist->setOrientationOffset(0);
-        lpms_waist->saveCalibrationData();
-        ui->textBrowser_status->append("IMU Waist is connected");
-        ui->pushButton_newFile->setEnabled(true);
-//        m_engine = engOpen("null");
-        timer_->start();
+    while(1){
+        if(lpms_LT->getConnectionStatus() == SENSOR_CONNECTION_CONNECTED && lpms_LT->hasImuData()){
+            ui->textBrowser_status->append("IMU Left Thigh is connected");
+            break;
+        }
     }
+}
+
+void MainWindow::on_actionConnect_Right_Thigh_IMU_triggered()
+{
+    lpms_RT = manager->addSensor(DEVICE_LPMS_B, "00:04:3E:9F:E0:F2");
+    while(1){
+        if(lpms_RT->getConnectionStatus() == SENSOR_CONNECTION_CONNECTED && lpms_RT->hasImuData()){
+            ui->textBrowser_status->append("IMU Right Thigh is connected");
+            break;
+        }
+    }
+}
+
+void MainWindow::on_actionLeft_Shank_IMU_triggered()
+{
+    lpms_LS = manager->addSensor(DEVICE_LPMS_B, "00:04:3E:9F:E0:ED");
+    while(1){
+        if(lpms_LS->getConnectionStatus() == SENSOR_CONNECTION_CONNECTED && lpms_LS->hasImuData()){
+            ui->textBrowser_status->append("IMU Left Shank is connected");
+            break;
+        }
+    }
+
+}
+
+void MainWindow::on_actionRight_Shank_IMU_triggered()
+{
+    lpms_RS = manager->addSensor(DEVICE_LPMS_B, "00:04:3E:9F:E0:BB");
+    while(1){
+        if(lpms_RS->getConnectionStatus() == SENSOR_CONNECTION_CONNECTED && lpms_RS->hasImuData()){
+            ui->textBrowser_status->append("IMU Right Shank is connected");
+            break;
+        }
+    }
+}
+
+void MainWindow::on_actionLeft_Foot_IMU_triggered()
+{
+    lpms_LF = manager->addSensor(DEVICE_LPMS_B, "00:04:3E:9F:E0:CF");
+    while(1){
+        if(lpms_LF->getConnectionStatus() == SENSOR_CONNECTION_CONNECTED && lpms_LF->hasImuData()){
+            ui->textBrowser_status->append("IMU Left Foot is connected");
+            break;
+        }
+    }
+}
+
+void MainWindow::on_actionRight_Foot_IMU_triggered()
+{
+    lpms_RF = manager->addSensor(DEVICE_LPMS_B, "00:04:3E:9F:E1:4B");
+    while(1){
+        if(lpms_RF->getConnectionStatus() == SENSOR_CONNECTION_CONNECTED && lpms_RF->hasImuData()){
+            ui->textBrowser_status->append("IMU Right Foot is connected");
+            break;
+        }
+    }
+}
+
+void MainWindow::on_actionWaist_triggered()
+{
+    lpms_waist = manager->addSensor(DEVICE_LPMS_B, "00:04:3E:9F:E0:B3");
+    while(1){
+        if(lpms_waist->getConnectionStatus() == SENSOR_CONNECTION_CONNECTED && lpms_waist->hasImuData()){
+            ui->textBrowser_status->append("IMU Waist is connected");
+            break;
+        }
+    }
+}
+
+void MainWindow::on_actionCalibration_triggered()
+{
+    lpms_LT->setOrientationOffset(0);
+    lpms_LT->saveCalibrationData();
+    lpms_RT->setOrientationOffset(0);
+    lpms_RT->saveCalibrationData();
+    lpms_LS->setOrientationOffset(0);
+    lpms_LS->saveCalibrationData();
+    lpms_RS->setOrientationOffset(0);
+    lpms_RS->saveCalibrationData();
+    lpms_LF->setOrientationOffset(0);
+    lpms_LF->saveCalibrationData();
+    lpms_RF->setOrientationOffset(0);
+    lpms_RF->saveCalibrationData();
+    lpms_waist->setOrientationOffset(0);
+    lpms_waist->saveCalibrationData();
+
+    ui->textBrowser_status->append("IMU Left Thigh calibration done!");
+    ui->textBrowser_status->append("IMU Right Thigh calibration done!");
+    ui->textBrowser_status->append("IMU Left Shank calibration done!");
+    ui->textBrowser_status->append("IMU Right Shank calibration done!");
+    ui->textBrowser_status->append("IMU Left Foot calibration done!");
+    ui->textBrowser_status->append("IMU Right Foot calibration done!");
+    ui->textBrowser_status->append("IMU Waist calibration done!");
+
+    timer_->start();
+    ui->pushButton_newFile->setEnabled(true);
 }
