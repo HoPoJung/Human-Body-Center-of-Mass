@@ -21,7 +21,14 @@ HEADERS  += mainwindow.h \
 
 FORMS    += mainwindow.ui
 
-INCLUDEPATH += $$quote(C:\OpenMAT\OpenMAT-1.3.5\include)
+INCLUDEPATH += $$quote(C:\OpenMAT\OpenMAT-1.3.4-x64\include)    \
+                $$quote(C:\Program Files\MATLAB\R2013\extern\include)
 
-LIBS += $$quote(C:\OpenMAT\OpenMAT-1.3.5\lib\x86\LpSensor.lib) \
-        $$quote(C:\OpenMAT\OpenMAT-1.3.5\lib\x86\LpSensorD.lib)
+
+LIBS += $$quote(C:\OpenMAT\OpenMAT-1.3.4-x64\lib\x64\LpSensor.lib) \
+        $$quote(C:\OpenMAT\OpenMAT-1.3.4-x64\lib\x64\LpSensorD.lib) \
+        $$quote(C:\Program Files\MATLAB\R2013\extern\lib\win64\microsoft\libeng.lib)    \
+        $$quote(C:\Program Files\MATLAB\R2013\extern\lib\win64\microsoft\libmx.lib)     \
+        $$quote(C:\Program Files\MATLAB\R2013\extern\lib\win64\microsoft\libmex.lib)    \
+        $$quote(C:\Program Files\MATLAB\R2013\extern\lib\win64\microsoft\libmat.lib)
+
